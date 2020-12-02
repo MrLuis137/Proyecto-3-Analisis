@@ -17,5 +17,18 @@ public enum Direccion {
     NO,
     NE,
     SO,
-    SE
+    SE;
+    
+    private final int index;
+    
+    private Direccion(int index){this.index = index;}
+    
+    public static Direccion getDireccion(int index){
+        for(Direccion dir : Direccion.values()){
+            if(dir.index == index){
+                return dir;
+            }
+        }
+        return null;
+    }
 }
