@@ -107,24 +107,9 @@ public class Abeja {
     }
     
     public void getADN(){
-        byte ADN[]= new byte[24];
-        byte bR[] = ByteBuffer.allocate(4).putInt(colorFav.r).array();
-        System.arraycopy( bR, 0, ADN, 0, 4 );
-        
-        byte bG[] = ByteBuffer.allocate(4).putInt(colorFav.g).array();
-        System.arraycopy( bG, 0, ADN, 4, 4 );
-        
-        byte bB[] = ByteBuffer.allocate(4).putInt(colorFav.b).array();
-        System.arraycopy( bB, 0, ADN, 8, 4 );
-        
-        byte bOrden[] = ByteBuffer.allocate(4).putInt(orden).array();
-        System.arraycopy( bOrden, 0, ADN, 12, 4 );
-        
-        byte bDistMax[] = ByteBuffer.allocate(4).putInt(distMax).array();
-        System.arraycopy( bDistMax, 0, ADN, 16, 4 );
-        
-        byte bDirFav[] = ByteBuffer.allocate(4).putInt(direccionFav.index).array();
-        System.arraycopy( bDirFav, 0, ADN, 20, 4 );
+       // ADN = r + g + b + dir + orden + distMax 
+        String ADN = Integer.toBinaryString(colorFav.r) +Integer.toBinaryString(colorFav.g) +Integer.toBinaryString(colorFav.b)
+                + Integer.toBinaryString(direccionFav.index) + Integer.toBinaryString(orden) + Integer.toBinaryString(distMax);
         
     }
 
