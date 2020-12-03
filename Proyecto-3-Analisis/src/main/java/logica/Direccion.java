@@ -3,23 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package principal;
+package logica;
 
 /**
  *
  * @author lalem
  */
 public enum Direccion {
-    N,
-    S,
-    E,
-    O,
-    NO,
-    NE,
-    SO,
-    SE;
+    N(0),
+    S(1),
+    E(2),
+    O(3),
+    NO(4),
+    NE(5),
+    SO(6),
+    SE(7);
     
-    private final int index;
+    final int index;
     
     private Direccion(int index){this.index = index;}
     

@@ -1,0 +1,140 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package logica;
+
+/**
+ *
+ * @author Luis Diego Alemán
+ */
+
+
+import java.nio.ByteBuffer;
+import logica.Color;
+import logica.Direccion;
+import logica.Flor;
+
+public class Abeja {
+    
+    private Color colorFav;
+    private Direccion direccionFav;
+    private int orden;
+    private int distMax;
+    private int generacion;
+    private Abeja[] ancestros;
+
+    public Flor getUltimaFlor() {
+        return ultimaFlor;
+    }
+
+    public void setUltimaFlor(Flor ultimaFlor) {
+        this.ultimaFlor = ultimaFlor;
+    }
+    private Flor ultimaFlor;
+    
+    
+    Abeja(){
+        this.orden = (int)Math.random() * 2;
+        this.distMax  = (int) Math.random() * 100 + 10;
+        this.direccionFav = Direccion.getDireccion((int) Math.random() * 7);
+        this.generacion = 0;
+        this.ancestros = null;
+        //this.colorFav
+        
+    }
+    
+    Abeja(Color ColorFav, Direccion DirecciónFav, int orden, int distMax, Abeja ancestro1, Abeja ancestro2, int generacion){
+        this.colorFav = colorFav;
+        this.direccionFav = direccionFav;
+        this.orden = orden;
+        this.distMax = distMax;
+        this.ancestros[1] = ancestro1;
+        this.ancestros[2] = ancestro2;
+    }
+
+    public int getGeneracion() {
+        return generacion;
+    }
+    
+    public void buscarFlor(){
+        
+    }
+    
+    public Abeja cruzarAbeja(Abeja abeja1,Abeja abeja2 ){
+        
+        return null;
+    }
+    public Color getColorFav() {
+        return colorFav;
+    }
+
+    public void setColorFav(Color colorFav) {
+        this.colorFav = colorFav;
+    }
+
+    public Direccion getDireccionFav() {
+        return direccionFav;
+    }
+
+    public void setDireccionFav(Direccion direccionFav) {
+        this.direccionFav = direccionFav;
+    }
+
+    public int getOrden() {
+        return orden;
+    }
+
+    public void setOrden(int orden) {
+        this.orden = orden;
+    }
+
+    public int getDistMax() {
+        return distMax;
+    }
+
+    public void setDistMax(int distMax) {
+        this.distMax = distMax;
+    }
+
+    public Abeja[] getAncestros() {
+        return ancestros;
+    }
+
+    public void setAncestros(Abeja[] ancestros) {
+        this.ancestros = ancestros;
+    }
+    
+    public void getADN(){
+        byte ADN[]= new byte[24];
+        byte bR[] = ByteBuffer.allocate(4).putInt(colorFav.r).array();
+        System.arraycopy( bR, 0, ADN, 0, 4 );
+        
+        byte bG[] = ByteBuffer.allocate(4).putInt(colorFav.g).array();
+        System.arraycopy( bG, 0, ADN, 4, 4 );
+        
+        byte bB[] = ByteBuffer.allocate(4).putInt(colorFav.b).array();
+        System.arraycopy( bB, 0, ADN, 8, 4 );
+        
+        byte bOrden[] = ByteBuffer.allocate(4).putInt(orden).array();
+        System.arraycopy( bOrden, 0, ADN, 12, 4 );
+        
+        byte bDistMax[] = ByteBuffer.allocate(4).putInt(distMax).array();
+        System.arraycopy( bDistMax, 0, ADN, 16, 4 );
+        
+        byte bDirFav[] = ByteBuffer.allocate(4).putInt(direccionFav.index).array();
+        System.arraycopy( bDirFav, 0, ADN, 20, 4 );
+        
+    }
+
+    @Override
+    public String toString() {
+        return "Abeja{" + "\n colorFav=" + colorFav + "\n,direccionFav=" + direccionFav + "\n, orden=" + orden + "\n, distMax=" + distMax + "\n, ancestros=" + ancestros + "\n, ultimaFlor=" + ultimaFlor + "\n}";
+    }
+    
+    
+    
+    
+    
+}
