@@ -79,8 +79,10 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
         
+        
         String a =  Integer.toBinaryString(7);
-        System.out.println(a);  
+        System.out.println(a);
+        System.out.println(Integer.toBinaryString(0));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

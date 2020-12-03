@@ -14,7 +14,7 @@ public class Flor {
     
     private int posX;
     private int posY;
-    private Color color;
+    private int color;
     private Flor ancestros[];
     private ArrayList<Flor> flores = new ArrayList<Flor>();//Flores de las cuales obtuvo polen.
 
@@ -23,10 +23,10 @@ public class Flor {
         //this.pos =(int) (Math.random() * tamaño de la ventana);
         this.posX = (int) (Math.random() * 100);
         this.posY = (int) (Math.random() * 100);
-        this.color = new Color();
+        this.color = (int) (Math.random() * 7);
     }
     
-    Flor(int posX, int posY, Color color, Flor ancestro1, Flor ancestro2){
+    Flor(int posX, int posY, int color, Flor ancestro1, Flor ancestro2){
         this.posX=posX;
         this.posY=posY;
         this.color=color;
@@ -53,10 +53,10 @@ public class Flor {
         return posY;
     }
     
-    public Color getColor() {
+    public int getColor() {
         return color;
     }
-    public void setColor(Color color) {
+    public void setColor(int color) {
         this.color = color;
     }
     

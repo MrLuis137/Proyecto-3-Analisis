@@ -11,14 +11,12 @@ package logica;
  */
 
 
-import java.nio.ByteBuffer;
-import logica.Color;
 import logica.Direccion;
 import logica.Flor;
 
 public class Abeja {
     
-    private Color colorFav;
+    private int colorFav;
     private Direccion direccionFav;
     private int orden;
     private int distMax;
@@ -38,14 +36,15 @@ public class Abeja {
     Abeja(){
         this.orden = (int)Math.random() * 2;
         this.distMax  = (int) Math.random() * 100 + 10;
+        this.colorFav =this.orden = (int)Math.random() * 7;
         this.direccionFav = Direccion.getDireccion((int) Math.random() * 7);
         this.generacion = 0;
         this.ancestros = null;
-        //this.colorFav
+        
         
     }
     
-    Abeja(Color ColorFav, Direccion DirecciónFav, int orden, int distMax, Abeja ancestro1, Abeja ancestro2, int generacion){
+    Abeja(int ColorFav, Direccion DirecciónFav, int orden, int distMax, Abeja ancestro1, Abeja ancestro2, int generacion){
         this.colorFav = colorFav;
         this.direccionFav = direccionFav;
         this.orden = orden;
@@ -66,11 +65,11 @@ public class Abeja {
         
         return null;
     }
-    public Color getColorFav() {
+    public int getColorFav() {
         return colorFav;
     }
 
-    public void setColorFav(Color colorFav) {
+    public void setColorFav(int colorFav) {
         this.colorFav = colorFav;
     }
 
@@ -107,10 +106,38 @@ public class Abeja {
     }
     
     public void getADN(){
-       // ADN = r + g + b + dir + orden + distMax 
-        String ADN = Integer.toBinaryString(colorFav.r) +Integer.toBinaryString(colorFav.g) +Integer.toBinaryString(colorFav.b)
-                + Integer.toBinaryString(direccionFav.index) + Integer.toBinaryString(orden) + Integer.toBinaryString(distMax);
-        
+       // ADN = color + dir + orden + distMax 
+       String bColor = Integer.toBinaryString(colorFav);
+       //Rellena de 0 para que la cantidad de bits sea constante
+        if(bColor.length() < 3){
+           int dif = 3 - bColor.length();
+           for(int i = 0; i < dif; i++){
+               bColor = "0" + bColor;
+           }
+        }
+       String bDir = Integer.toBinaryString(direccionFav.index);
+       if(bDir.length() < 3){
+           int dif = 3 - bDir.length();
+           for(int i = 0; i < dif; i++){
+               bDir = "0" + bDir;
+           }
+       }
+       String bOrd = Integer.toBinaryString(orden);
+       if(bOrd.length() < 2){
+           int dif = 2 - bOrd.length();
+           for(int i = 0; i < dif; i++){
+               bOrd = "0" + bOrd;
+           }
+       }
+       String bDist =Integer.toBinaryString(distMax);
+       if(bDist.length() < 8){
+           int dif = 8 - bDist.length();
+           for(int i = 0; i < dif; i++){
+               bDir = "0" + bDir;
+           }
+       }
+       
+        String ADN = bColor + bDir + bOrd + bDist;
     }
 
     @Override
