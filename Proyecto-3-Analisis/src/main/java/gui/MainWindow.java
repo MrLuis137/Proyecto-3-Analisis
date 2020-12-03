@@ -81,8 +81,16 @@ public class MainWindow extends javax.swing.JFrame {
         
         
         String a =  Integer.toBinaryString(7);
-        System.out.println(a);
-        System.out.println(Integer.toBinaryString(0));
+        Abeja a1 = new Abeja();
+        System.out.println(a1.toString());
+        Abeja a2 = new Abeja();
+        System.out.println(a2.toString());
+        Abeja a3 = a1.cruzarAbeja(a2);
+        System.out.println(a3.toString());
+        for(int i = 30; i < 30; i++){
+            System.out.println((int)(Math.random() * 3));
+        }
+        System.out.println((Math.random() * 1));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
