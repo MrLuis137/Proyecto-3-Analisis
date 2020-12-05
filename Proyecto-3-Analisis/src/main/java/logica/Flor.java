@@ -9,15 +9,16 @@ import java.util.ArrayList;
 /**
  *
  * @author Jacob Picado García
- */
+ */ 
+
 public class Flor {
-    
+    private double factorMutacion = 0.5;
     private int posX;
     private int posY;
     private int color;
     private int generacion;
     private Flor ancestros[];
-    private ArrayList<Flor> flores = new ArrayList<Flor>();//Flores de las cuales obtuvo polen.
+    private ArrayList<Flor> flores = new ArrayList<>();//Flores de las cuales obtuvo polen.
 
     
     public Flor(){
@@ -65,6 +66,10 @@ public class Flor {
     public int getGeneracion() {
         return generacion;
     }
+    public void setGeneracion(int generacion) {
+        this.generacion = generacion;
+    }
+    
         
     public ArrayList<Flor> getFlores() {
         return flores;
@@ -95,18 +100,33 @@ public class Flor {
     }
             
     public Flor cruzarFlores(){
-        int indice = (int)(Math.random()*(flores.size()));
-        
-        String individuo1=obtenerCadena(this);
-        String individuo2=obtenerCadena(flores.get(indice));
-        
-        int corte=(int)(Math.random()*19);
-        
-        String nuevo= individuo1.substring(0, corte)+individuo2.substring(corte, individuo2.length());
-        
-        //Mutación
+        if (flores.size()>0){
+            int indice = (int)(Math.random()*(flores.size()));
 
-        return new Flor(Integer.parseInt(nuevo.substring(0, 8)),Integer.parseInt(nuevo.substring(8, 16)),
-                Integer.parseInt(nuevo.substring(16, 19)),this,flores.get(indice));
+            String individuo1=obtenerCadena(this);
+            String individuo2=obtenerCadena(flores.get(indice));
+
+            int corte=(int)(Math.random()*19);
+
+            String nuevo= individuo1.substring(0, corte)+individuo2.substring(corte, individuo2.length());
+
+            //Mutación
+            if ((Math.random()* 1)==factorMutacion){
+                char[] tempCharArray = nuevo.toCharArray();
+                int i=(int)(Math.random()*19);
+                
+                if(nuevo.charAt(i)=='1')tempCharArray[i] = '0';
+                else tempCharArray[i] = '0';
+                nuevo = String.valueOf(tempCharArray);  
+            }
+
+            return new Flor(Integer.parseInt(nuevo.substring(0, 8)),Integer.parseInt(nuevo.substring(8, 16)),
+                    Integer.parseInt(nuevo.substring(16, 19)),this,flores.get(indice));
+        }
+        else{
+            Flor newFlor = new Flor();
+            newFlor.setGeneracion(this.getGeneracion()+1);
+            return newFlor;
+        }
     }
 }
