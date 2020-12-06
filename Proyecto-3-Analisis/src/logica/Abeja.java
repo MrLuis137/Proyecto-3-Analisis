@@ -42,10 +42,10 @@ public class Abeja {
     
     public Abeja(String ADN, Abeja ancestro1, Abeja ancestro2){
         // ADN = color + dir + orden + distMax 
-        colorFav = Integer.parseInt(ADN.substring(0, 2), 2);
-        direccionFav = Direccion.getDireccion( Integer.parseInt(ADN.substring(3, 5), 2) );
-        orden = Integer.parseInt(ADN.substring(6, 7), 2);
-        distMax = Integer.parseInt(ADN.substring(8, 14), 2);
+        colorFav = Integer.parseInt(ADN.substring(0, 3), 2);
+        direccionFav = Direccion.getDireccion( Integer.parseInt(ADN.substring(3, 6), 2) );
+        orden = Integer.parseInt(ADN.substring(6, 8), 2);
+        distMax = Integer.parseInt(ADN.substring(8, 16), 2);
         this.ancestros = new Abeja[]{ancestro1, ancestro2}; 
     }
     
@@ -128,8 +128,6 @@ public class Abeja {
         //obtiene los ADN
         String ADN1 = this.getADN();
         String ADN2 = abeja2.getADN();
-        System.out.println(ADN1 + " " + ADN1.length());
-        System.out.println(ADN2 + " " + ADN2.length());
         //Posición de corte random
         int corte = (int) (Math.random() * 14);
         //Obtiene las partes del ADN
@@ -139,11 +137,13 @@ public class Abeja {
         String nuevoADN = parte1 + parte2;
          System.out.println(nuevoADN);
          //genera la mutación
-        if((Math.random()* 1) == factorMutacion){
+        if((Math.random()* 1) < factorMutacion){
             System.out.println("La abeja ha mutado");
-           int indice = (int)(Math.random()* 15);
+           int indice = (int)(Math.random()* 15 + 1);
            char mutacion = (nuevoADN.charAt(indice) == '0')? '1':'0';
-           nuevoADN = nuevoADN.substring(0, indice - 1 ) + mutacion + nuevoADN.substring(indice + 1, nuevoADN.length() ); 
+           String mit1 = nuevoADN.substring(0, indice );
+           String mit2 = nuevoADN.substring(indice + 1 , nuevoADN.length() );
+           nuevoADN = mit1 + mutacion + mit2; 
         }
         
         return new Abeja(nuevoADN, this, abeja2);
