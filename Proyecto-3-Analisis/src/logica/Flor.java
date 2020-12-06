@@ -6,18 +6,15 @@
 package logica;
 import java.util.ArrayList;
 
-/**
- *
- * @author Jacob Picado García
- */ 
+
 
 public class Flor {
-    private double factorMutacion = 0.5;
+    private final double factorMutacion = 0.5;
     private int posX;
     private int posY;
     private int color;
     private int generacion;
-    private Flor ancestros[];
+    private ArrayList<Flor> ancestros= new ArrayList<>();
     private ArrayList<Flor> flores = new ArrayList<>();//Flores de las cuales obtuvo polen.
 
     
@@ -34,7 +31,7 @@ public class Flor {
         this.posY=posY;
         this.color=color;
         this.generacion=ancestro1.getGeneracion()+1;
-        this.ancestros = new Flor[]{ancestro1, ancestro2}; 
+        this.ancestros.add(ancestro1);this.ancestros.add(ancestro2);  
     }
     
     public void agregarFlor(Flor flor){
@@ -75,7 +72,7 @@ public class Flor {
         return flores;
     }
 
-    public Flor[] getAncestros() {
+    public ArrayList<Flor> getAncestros() {
         return ancestros;
     }
     
@@ -85,13 +82,44 @@ public class Flor {
         return numero;    
     }
     
+    public void mostrarADN(int deph){
+        if(deph<2){
+            System.out.println("\n________________INFORMACION________________");
+            System.out.println("-------------------------------------------");
+            System.out.print("GENERATION: ");
+            System.out.println(this.generacion);
+            System.out.print("POSX,POSY: ");
+            System.out.print(this.posX+","+this.posY);
+            System.out.println(" --- Binario: "+Integer.toBinaryString(this.posX)+","+Integer.toBinaryString(this.posY));
+            System.out.print("COLOR: ");
+            System.out.print(this.color);
+            System.out.println(" --- Binario: "+Integer.toBinaryString(this.color));
+            
+            if(this.getAncestros().size()>0){
+                System.out.println("____________ANCESTROS____________");
+                System.out.println("_________Ancestro 1");
+                this.getAncestros().get(0).mostrarADN(deph+1);
+                System.out.println("_________Ancestro 2");
+                this.getAncestros().get(1).mostrarADN(deph+1);    
+            }
+            
+        }
+            
+               
+    }
+    
     public String obtenerCadena(Flor flor){
         String cadena="";
         //Posicion
-        cadena.concat(completarBits(Integer.toBinaryString(flor.getPosX()),1));
-        cadena.concat(completarBits(Integer.toBinaryString(flor.getPosY()),1));
+        cadena=cadena+completarBits(Integer.toBinaryString(flor.getPosX()),1);
+        //System.out.println(cadena);
+        
+        cadena=cadena+completarBits(Integer.toBinaryString(flor.getPosY()),1);
+        //System.out.println(cadena);
+        
         //Color
-        cadena.concat(completarBits(Integer.toBinaryString(flor.getColor()),0));
+        cadena=cadena+completarBits(Integer.toBinaryString(flor.getColor()),0);
+        //System.out.println(cadena);
         return cadena; 
     }
     public Flor generarFlor(String cadena){
@@ -108,10 +136,13 @@ public class Flor {
 
             int corte=(int)(Math.random()*19);
 
-            String nuevo= individuo1.substring(0, corte)+individuo2.substring(corte, individuo2.length());
+            String nuevo= individuo1.substring(0, corte);
+            String nuevo1= individuo2.substring(corte, individuo2.length());
+            nuevo=nuevo+nuevo1;
 
             //Mutación
             if ((Math.random()* 1)==factorMutacion){
+                System.out.println("HUBO MUTACION");
                 char[] tempCharArray = nuevo.toCharArray();
                 int i=(int)(Math.random()*19);
                 
@@ -119,9 +150,13 @@ public class Flor {
                 else tempCharArray[i] = '0';
                 nuevo = String.valueOf(tempCharArray);  
             }
+            /*
+            System.out.println(corte+" "+nuevo);
+            System.out.println(nuevo.substring(0, 8)+" "+nuevo.substring(8, 16)+" "+ nuevo.substring(16, 19));
+            */
 
-            return new Flor(Integer.parseInt(nuevo.substring(0, 8)),Integer.parseInt(nuevo.substring(8, 16)),
-                    Integer.parseInt(nuevo.substring(16, 19)),this,flores.get(indice));
+            return new Flor(Integer.parseInt(nuevo.substring(0, 8),2),Integer.parseInt(nuevo.substring(8, 16),2),
+                    Integer.parseInt(nuevo.substring(16, 19),2),this,flores.get(indice));
         }
         else{
             Flor newFlor = new Flor();
