@@ -16,7 +16,8 @@ import logica.Flor;
 import java.util.ArrayList;
 
 public class Abeja {
-    
+    int puntoInicioX = 0;
+    int puntoInicioY = 0;
     private double factorMutacion = 0.5;
     private int colorFav;
     private Direccion direccionFav;
@@ -32,11 +33,15 @@ public class Abeja {
         //Generación random de datos
         this.orden = (int)(Math.random() * 3);
         System.out.println(this.orden);
-        this.distMax  = (int) (Math.random() * 100 + 10);
+        this.distMax  = (int) (Math.random() * (100 - 10) + 10);
         this.colorFav = (int) (Math.random() * 7);
         this.direccionFav = Direccion.getDireccion((int) Math.random() * 7);
         this.generacion = 0;
-        // Falta agregar la posicion inicial, la cual es el centro
+        if((int)(Math.random()*1) == 0){
+           posX = puntoInicioX;
+           posY = puntoInicioY;
+        }
+        else{getRadomPos();}
         this.ancestros = null;   
     }
     
@@ -46,6 +51,8 @@ public class Abeja {
         direccionFav = Direccion.getDireccion( Integer.parseInt(ADN.substring(3, 6), 2) );
         orden = Integer.parseInt(ADN.substring(6, 8), 2);
         distMax = Integer.parseInt(ADN.substring(8, 16), 2);
+        posX = puntoInicioX  = Integer.parseInt(ADN.substring(16, 24), 2);
+        posY = puntoInicioY = Integer.parseInt(ADN.substring(24, 32), 2);
         this.ancestros = new Abeja[]{ancestro1, ancestro2}; 
     }
     
@@ -57,6 +64,57 @@ public class Abeja {
         this.distMax = distMax;
         this.ancestros[1] = ancestro1;
         this.ancestros[2] = ancestro2;
+    }
+    
+    private void getRadomPos(){
+        int x = 0;
+        int y = 0;
+        int mitad = Main.TamanioCampo / 2;
+        switch(direccionFav){
+            case N:
+                y = (int) Math.random() * (this.distMax - mitad) + mitad; 
+                break;
+                
+            case NE:
+                do{
+                    y = (int) Math.random() * (this.distMax - mitad) + mitad;
+                    x = (int) Math.random() *  mitad;
+                }
+                while(Math.sqrt((double)( x^2 + y^2 )) >= distMax);
+                break;
+                
+            case E:
+                    x = (int) Math.random() *  mitad;
+                break;
+                
+            case SE:
+                do{
+                    y = (int) Math.random() *  mitad;
+                    x = (int) Math.random() *  mitad;
+                }
+                while(Math.sqrt((double)( x^2 + y^2 )) >= distMax);
+                break;
+                
+            case S:
+                y = (int) Math.random() *  mitad;
+                break;
+                
+            case SO:
+                do{
+                    y = (int) Math.random() *  mitad;
+                    x = (int) Math.random() * (this.distMax - mitad) + mitad;
+                }
+                while(Math.sqrt((double)( x^2 + y^2 )) >= distMax);
+                break;
+                
+            case O:
+                x = (int) Math.random() * (this.distMax - mitad) + mitad;
+                break;
+            case NO:
+                break;
+        }
+        this.posX = x;
+        this.posY = y;
     }
     
     public void agregarFlor(Flor f){
@@ -150,7 +208,7 @@ public class Abeja {
     }
     
     public String getADN(){
-       // ADN = color + dir + orden + distMax 
+       // ADN = color + dir + orden + distMax + inicioX + inicioY
        //Convierte el número a binario
        String bColor = Integer.toBinaryString(colorFav);
        //Rellena de 0 para que la cantidad de bits sea constante
@@ -179,6 +237,22 @@ public class Abeja {
            int dif = 8 - bDist.length();
            for(int i = 0; i < dif; i++){
                bDir = "0" + bDir;
+           }
+       }
+       
+       String iniX =Integer.toBinaryString(distMax);
+       if(iniX.length() < 8){
+           int dif = 8 - iniX .length();
+           for(int i = 0; i < dif; i++){
+               iniX  = "0" + iniX ;
+           }
+       }
+       
+       String iniY =Integer.toBinaryString(distMax);
+       if(iniY.length() < 8){
+           int dif = 8 - iniY.length();
+           for(int i = 0; i < dif; i++){
+               iniY = "0" + iniY;
            }
        }
        

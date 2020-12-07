@@ -26,7 +26,32 @@ public class CampoFlores {
     
     public void run(ArrayList<Flor> flores){
         for(Flor flor: flores){
-            sketch.fill(0,0,0);
+            switch(flor.getColor()){
+                case 0:
+                    sketch.fill(255,0,0);
+                    break;
+                case 1:
+                    sketch.fill(0,255,0);
+                    break;
+                case 2:
+                    sketch.fill(0,0,255);
+                    break;
+                case 3:
+                    sketch.fill(255,255,0);
+                    break;
+                case 4:
+                    sketch.fill(160,0,160);
+                    break;
+                case 5:
+                    sketch.fill(0,255,255);
+                    break;
+                case 6:
+                    sketch.fill(255,128,0);
+                    break;
+                case 7:
+                    sketch.fill(255,0,128);
+                    break;
+            }
             sketch.rect(flor.getPosX()*10,flor.getPosY()*10,10,10);
         }
     }

@@ -17,9 +17,9 @@ import java.util.ArrayList;
  */
 public class Main extends PApplet{
     
-    int cantidadFlores = 100;
-    int cantidadAbejas = 100;
-    int TamanioCampo = 100;
+    public static final int cantidadFlores = 100;
+    public static final int cantidadAbejas = 100;
+    public static final int TamanioCampo = 100;
     
     public static ArrayList<Flor> FloresActuales = new ArrayList<Flor>();
     public static ArrayList<Abeja> AbejasActuales = new ArrayList<Abeja>();
