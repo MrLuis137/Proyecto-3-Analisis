@@ -48,6 +48,7 @@ public class Main extends PApplet{
             AbejasActuales.add(new Abeja());
         }
         cambios = true;
+        //AbejasActuales.get(0).cruzarAbeja(AbejasActuales.get(2));
     }
     
     @Override
