@@ -92,10 +92,10 @@ public class Main extends PApplet{
             Abeja a2 = null;
             for(int j  = 0; j < puntajes.size(); j++){
                 if(n1 <= puntajes.get(j)[1] && n1 >= puntajes.get(j-1)[1] && a1 == null){
-                    a1 = abejasActuales.get((int)puntajes.get(i)[0]);
+                    a1 = abejasActuales.get((int)puntajes.get(j)[0]);
                 }
                 if(n2 <= puntajes.get(j)[1] && n2 >= puntajes.get(j-1)[1] -1 && a2 == null){
-                    a2 = abejasActuales.get((int)puntajes.get(i)[0]);
+                    a2 = abejasActuales.get((int)puntajes.get(j)[0]);
                 }
                 if(a1 != null && a2 != null){break;}
             }
