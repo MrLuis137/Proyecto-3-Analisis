@@ -18,18 +18,18 @@ import java.util.ArrayList;
 public class Main extends PApplet{
     
     public static final int cantidadFlores = 100;
-    public static final int cantidadAbejas = 100;
+    public static final int cantidadAbejas = 10;
     public static final int TamanioCampo = 100;
     
     public static ArrayList<Flor> FloresActuales = new ArrayList<Flor>();
-    public static ArrayList<Abeja> AbejasActuales = new ArrayList<Abeja>();
+    public static ArrayList<Abeja> abejasActuales = new ArrayList<Abeja>();
     boolean cambios = false;
-    CampoFlores campo;
+    public static CampoFlores campo;
+    public static MainWindow w;
     
     public static void main(String[]Args){
         String[] appletArgs = new String[] { "logica.Main" };
         PApplet.main(appletArgs);
-        new MainWindow().setVisible(true);
         
     }
     
@@ -40,13 +40,16 @@ public class Main extends PApplet{
     
     @Override
     public void setup(){
+        w = new MainWindow();
+        w.setVisible(true);
         campo = new CampoFlores(this);
-        for(int i = 0; i < cantidadAbejas; i++ ){
+        for(int i = 0; i < cantidadFlores; i++ ){
             FloresActuales.add(new Flor());
         }
-        for(int i = 0; i < cantidadFlores; i++){
-            AbejasActuales.add(new Abeja());
+        for(int i = 0; i < cantidadAbejas; i++){
+            abejasActuales.add(new Abeja());
         }
+        w.actualizarListaAbejas();
         cambios = true;
         //AbejasActuales.get(0).cruzarAbeja(AbejasActuales.get(2));
     }
@@ -58,4 +61,77 @@ public class Main extends PApplet{
             cambios = false;
         }
     }
+    
+    public static void runIteration(){
+        ArrayList<float[]> puntajes = new ArrayList<float[]>();
+        float puntajeGlobal = 0;
+        float i = 0;
+        for(Abeja abeja: abejasActuales){
+            abeja.recorrerCampo();
+            float[] pts = {i,abeja.CalcularCalificacion()};
+            puntajes.add(pts);
+            puntajeGlobal+= abeja.getPuntaje();
+            i++;
+        }
+        for(float[] puntaje : puntajes){ puntaje[1] = puntaje[1] / puntajeGlobal;}
+        realiazarCruce(puntajes);
+        //------PROBABLEMENTE DEBA SER ELIMINADO A FUTURO-------
+        w.actualizarListaAbejas();
+        
+    }
+    
+    private static void realiazarCruce(ArrayList<float[]> puntajes){
+        ArrayList<Abeja> nuevasAbejas = new ArrayList<Abeja>();
+        ordenarPuntajes(puntajes, 0, puntajes.size() - 1);
+        for(int i = 0; i < (cantidadAbejas / 2); i++ ){
+            float min =  puntajes.get(0)[1];
+            float max = puntajes.get(puntajes.size() - 1)[1];
+            double n1 = Math.random() * (max - min) +  min;
+            double n2 = Math.random() * (max - min) +  min;
+            Abeja a1 = null;
+            Abeja a2 = null;
+            for(int j  = 0; j < puntajes.size(); j++){
+                if(n1 <= puntajes.get(j)[1] && n1 >= puntajes.get(j-1)[1] && a1 == null){
+                    a1 = abejasActuales.get((int)puntajes.get(i)[0]);
+                }
+                if(n2 <= puntajes.get(j)[1] && n2 >= puntajes.get(j-1)[1] -1 && a2 == null){
+                    a2 = abejasActuales.get((int)puntajes.get(i)[0]);
+                }
+                if(a1 != null && a2 != null){break;}
+            }
+            System.out.println(n1);
+            System.out.println(n2);
+            nuevasAbejas.add(a1.cruzarAbeja(a2));
+            nuevasAbejas.add(a2.cruzarAbeja(a1));
+        }
+        abejasActuales = nuevasAbejas;
+    }
+    
+    
+    private static void ordenarPuntajes(ArrayList<float[]> A, int izq, int der) {
+
+        float[] pivote = A.get(izq); // tomamos primer elemento como pivote
+        int i=izq;         // i realiza la búsqueda de izquierda a derecha
+        int j=der;         // j realiza la búsqueda de derecha a izquierda
+        float[] aux;
+
+        while(i < j){                          // mientras no se crucen las búsquedas                                   
+           while(A.get(i)[1] <= pivote[1] && i < j) i++; // busca elemento mayor que pivote
+           while(A.get(j)[1] > pivote[1]) j--;           // busca elemento menor que pivote
+           if (i < j) {                        // si no se han cruzado                      
+               aux= A.get(i);                      // los intercambia
+               A.set(i, A.get(j));
+               A.set(j, aux);
+           }
+         }
+
+        A.set(izq, A.get(j));
+        A.set(j, pivote);
+
+         if(izq < j-1)
+            ordenarPuntajes(A,izq,j-1);          // ordenamos subarray izquierdo
+         if(j+1 < der)
+            ordenarPuntajes(A,j+1,der);          // ordenamos subarray derecho
+
+      }
 }
