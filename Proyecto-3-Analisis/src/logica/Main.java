@@ -67,12 +67,32 @@ public class Main extends PApplet{
         float puntajeGlobal = 0;
         float i = 0;
         for(Abeja abeja: abejasActuales){
-            abeja.recorrerCampo();
+            //abeja.recorrerCampo();
+            abeja.busqueda();
             float[] pts = {i,abeja.CalcularCalificacion()};
             puntajes.add(pts);
             puntajeGlobal+= abeja.getPuntaje();
             i++;
+            
+            /*                 CODIGO PARA PRUEBAS PARA LAS ABEJAS
+            System.out.println("DISTANCIA MAX: "+abeja.getDistMax());
+            System.out.println("DISTANCIA RECORRIDA: "+abeja.getDistanciaRecorrida());
+            System.out.println("______________________________________________________________________________");//*/
         }
+        /*                 CODIGO PARA PRUEBAS PARA LAS FLORES
+        for (Flor flor: FloresActuales){
+            if(!flor.getFlores().isEmpty()){
+                System.out.println("_________________________________________________________________________");
+                System.out.println("_____________________________PRINCIPAL___________________________________");
+                System.out.println("*************************************************************************");
+                flor.mostrarADN(0);
+                System.out.println("CANTIDAD DE POLEN: "+flor.getFlores().size());
+                System.out.println("_________________________________________________________________________");
+                System.out.println("----------------------------------POLEN----------------------------------");
+                System.out.println("¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨");                
+                for(Flor a: flor.getFlores()){
+                a.mostrarADN(0);}}}//*/
+        
         if(puntajeGlobal != 0){
         for(float[] puntaje : puntajes){ puntaje[1] = puntaje[1] / puntajeGlobal;}
         
