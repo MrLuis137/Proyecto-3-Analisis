@@ -88,8 +88,7 @@ public class Flor {
     
     public void mostrarADN(int deph){
         if(deph<2){
-            System.out.println("\n________________INFORMACION________________");
-            System.out.println("-------------------------------------------");
+            System.out.println("________________INFORMACION________________");
             System.out.print("GENERATION: ");
             System.out.println(this.generacion);
             System.out.print("POSX,POSY: ");
@@ -97,7 +96,7 @@ public class Flor {
             System.out.println(" --- Binario: "+Integer.toBinaryString(this.posX)+","+Integer.toBinaryString(this.posY));
             System.out.print("COLOR: ");
             System.out.print(this.color);
-            System.out.println(" --- Binario: "+Integer.toBinaryString(this.color));
+            System.out.println(" --- Binario: "+Integer.toBinaryString(this.color)+"\n");
             
             if(this.getAncestros().size()>0){
                 System.out.println("____________ANCESTROS____________");
@@ -105,11 +104,8 @@ public class Flor {
                 this.getAncestros().get(0).mostrarADN(deph+1);
                 System.out.println("_________Ancestro 2");
                 this.getAncestros().get(1).mostrarADN(deph+1);    
-            }
-            
-        }
-            
-               
+            }  
+        }         
     }
     
     public String obtenerCadena(Flor flor){
