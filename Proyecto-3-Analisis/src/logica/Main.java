@@ -18,12 +18,12 @@ import java.util.ArrayList;
 public class Main extends PApplet{
     
     public static final int cantidadFlores = 100;
-    public static final int cantidadAbejas = 10;
+    public static final int cantidadAbejas = 100;
     public static final int TamanioCampo = 100;
     
     public static ArrayList<Flor> FloresActuales = new ArrayList<Flor>();
     public static ArrayList<Abeja> abejasActuales = new ArrayList<Abeja>();
-    boolean cambios = false;
+    static boolean  cambios = false;
     public static CampoFlores campo;
     public static MainWindow w;
     
@@ -73,7 +73,10 @@ public class Main extends PApplet{
             puntajeGlobal+= abeja.getPuntaje();
             i++;
         }
+        if(puntajeGlobal != 0){
         for(float[] puntaje : puntajes){ puntaje[1] = puntaje[1] / puntajeGlobal;}
+        
+        }
         realiazarCruce(puntajes);
         //------PROBABLEMENTE DEBA SER ELIMINADO A FUTURO-------
         w.actualizarListaAbejas();
@@ -82,7 +85,12 @@ public class Main extends PApplet{
     
     private static void realiazarCruce(ArrayList<float[]> puntajes){
         ArrayList<Abeja> nuevasAbejas = new ArrayList<Abeja>();
+        ArrayList<Flor> nuevasFlores = new ArrayList<Flor>();
+        for(float[] puntaje: puntajes){
+            System.out.println(puntaje[1]);
+        }
         ordenarPuntajes(puntajes, 0, puntajes.size() - 1);
+        System.out.println("******");
         for(int i = 0; i < (cantidadAbejas / 2); i++ ){
             float min =  puntajes.get(0)[1];
             float max = puntajes.get(puntajes.size() - 1)[1];
@@ -91,6 +99,15 @@ public class Main extends PApplet{
             Abeja a1 = null;
             Abeja a2 = null;
             for(int j  = 0; j < puntajes.size(); j++){
+                if(j == 0){
+                    if(n1 <= puntajes.get(j)[1] && a1 == null){
+                    a1 = abejasActuales.get((int)puntajes.get(j)[0]);
+                    }
+                    if(n2 <= puntajes.get(j)[1] && a2 == null){
+                        a2 = abejasActuales.get((int)puntajes.get(j)[0]);
+                    }
+                    continue;
+                }
                 if(n1 <= puntajes.get(j)[1] && n1 >= puntajes.get(j-1)[1] && a1 == null){
                     a1 = abejasActuales.get((int)puntajes.get(j)[0]);
                 }
@@ -99,12 +116,20 @@ public class Main extends PApplet{
                 }
                 if(a1 != null && a2 != null){break;}
             }
-            System.out.println(n1);
-            System.out.println(n2);
+            //System.out.println(n1);
+            //System.out.println(n2);
             nuevasAbejas.add(a1.cruzarAbeja(a2));
             nuevasAbejas.add(a2.cruzarAbeja(a1));
         }
         abejasActuales = nuevasAbejas;
+        //FLORES
+        for(Flor f: FloresActuales ){
+            //System.out.println(f.getFlores().size());
+            nuevasFlores.add(f.cruzarFlores());
+        }
+        System.out.println("---");
+        FloresActuales = nuevasFlores;
+        cambios = true;
     }
     
     
@@ -123,6 +148,7 @@ public class Main extends PApplet{
                A.set(i, A.get(j));
                A.set(j, aux);
            }
+            System.out.println(i + " "+ j + " "+ pivote[1]);
          }
 
         A.set(izq, A.get(j));

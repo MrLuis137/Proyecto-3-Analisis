@@ -25,6 +25,8 @@ public class CampoFlores {
     }
     
     public void run(ArrayList<Flor> flores){
+        sketch.clear();
+        sketch.background(255);
         for(Flor flor: flores){
             switch(flor.getColor()){
                 case 0:

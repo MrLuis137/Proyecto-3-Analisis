@@ -39,6 +39,10 @@ public class Flor {
         //flores.addAll(flores)//Si lo que va agregar de una un arraylist entero
     }
     
+    public void agregarFlores(ArrayList<Flor> polen){
+        flores.addAll(polen);
+    }
+    
     public int getPosX() {
         return posX;
     }
@@ -128,6 +132,7 @@ public class Flor {
     }
             
     public Flor cruzarFlores(){
+        //System.out.println("Wenas");
         if (flores.size()>0){
             int indice = (int)(Math.random()*(flores.size()));
 

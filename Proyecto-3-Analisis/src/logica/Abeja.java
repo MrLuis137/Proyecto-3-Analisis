@@ -21,8 +21,9 @@ public class Abeja {
     static private int globalgen = 0;
     String id = "";
     //====== IRRELEVANTE PARA LA BUSQUEDA, CRUCE ETC..=============
-    int puntoInicioX = 50;
-    int puntoInicioY = 50;
+    //int puntoInicioX = 50;
+    //int puntoInicioY = 50;
+    boolean seAleja;
     boolean mutada = false;
     private double factorMutacion = 0.5;
     private int colorFav;
@@ -39,8 +40,8 @@ public class Abeja {
     
     //------------CODIGO TEMPORAL---------------
     //------------------------------------------
-    public void busquedaTemporal(){
-        if(distanciaRecorrida >= distMax){return;}
+    public int busquedaTemporal(){
+        if(distanciaRecorrida >= distMax){return 0;}
         for(int i = 0; i < 100; i++){
             Flor f = Main.FloresActuales.get(i);
             if( f.getColor()== this.colorFav && !floresVisitadas.contains(f)){
@@ -50,12 +51,13 @@ public class Abeja {
                 float dist = (float) Math.sqrt(Math.pow(tempX, 2) + Math.pow(tempY, 2));
                 distanciaRecorrida += dist;
                 
-                
+                f.agregarFlores(floresVisitadas);
                 this.posX = f.getPosX();
                 this.posY = f.getPosY();
-                
+                return 1;
             }
         }
+        return 0;
     }
     //------------------------------------------
     //------------CODIGO TEMPORAL---------------
@@ -65,17 +67,17 @@ public class Abeja {
         id= "AB-0-" + count;
         count++;
         this.orden = (int)(Math.random() * 3);
-        System.out.println(this.orden);
+        //System.out.println(this.orden);
         this.distMax  = (int) (Math.random() * (100 - 10) + 10);
         this.colorFav = (int) (Math.random() * 7);
         this.direccionFav = Direccion.getDireccion((int) Math.random() * 7);
         this.generacion = 0;
-        if((int)(Math.random()*1) == 0){
+        /*if((int)(Math.random()*1) == 0){
            posX = puntoInicioX;
            posY = puntoInicioY;
         }
         else{getRadomPos();}
-        this.ancestros = null;   
+        this.ancestros = null;*/   
     }
     
     public Abeja(String ADN, Abeja ancestro1, Abeja ancestro2){
@@ -84,9 +86,9 @@ public class Abeja {
         direccionFav = Direccion.getDireccion( Integer.parseInt(ADN.substring(3, 6), 2) );
         orden = Integer.parseInt(ADN.substring(6, 8), 2);
         distMax = Integer.parseInt(ADN.substring(8, 16), 2);
-        System.out.println(ADN.length());
-        posX = puntoInicioX  = Integer.parseInt(ADN.substring(16, 24), 2);
-        posY = puntoInicioY = Integer.parseInt(ADN.substring(24, 32), 2);
+        //System.out.println(ADN.length());
+        /*posX = puntoInicioX  = Integer.parseInt(ADN.substring(16, 24), 2);
+        posY = puntoInicioY = Integer.parseInt(ADN.substring(24, 32), 2);*/
         this.generacion = ancestro1.generacion + 1;
         ancestros = new Abeja[]{ancestro1, ancestro2};
         if(this.generacion > globalgen){
@@ -110,7 +112,7 @@ public class Abeja {
         this.ancestros[2] = ancestro2;
     }
     
-    private void getRadomPos(){
+    /*private void getRadomPos(){
         int x = 0;
         int y = 0;
         int mitad = Main.TamanioCampo / 2;
@@ -159,13 +161,15 @@ public class Abeja {
         }
         this.posX = x;
         this.posY = y;
-    }
+    }*/
     
     public void recorrerCampo(){
         //------------CODIGO TEMPORAL---------------
-        busquedaTemporal();
+         int k = busquedaTemporal();
         //------------CODIGO TEMPORAL---------------
-        if(distanciaRecorrida < distMax){recorrerCampo();}
+        double dist = Math.sqrt((double)( (posX - Main.TamanioCampo/2)^2 + (posY - Main.TamanioCampo/2)^2 ));
+        //System.out.println(posX + "" + posY);
+        if(k == 1 && dist <= distMax && distanciaRecorrida <= (distMax^2)){recorrerCampo();}
     }
     
     public void agregarFlor(Flor f){
@@ -243,19 +247,19 @@ public class Abeja {
         String ADN1 = this.getADN();
         String ADN2 = abeja2.getADN();
         //Posición de corte random
-        int corte = (int) (Math.random() * 30);
+        int corte = (int) (Math.random() * 15);
         //Obtiene las partes del ADN
         String parte1 = ADN1.substring(0, corte);
-        String parte2 = ADN2.substring(corte, 32);
+        String parte2 = ADN2.substring(corte, 16);
         //Lo reconvina
         String nuevoADN = parte1 + parte2;
-         System.out.println(nuevoADN);
+         //System.out.println(nuevoADN);
          //genera la mutación
          boolean muta = false;
         if((Math.random()* 1) < factorMutacion){
-            System.out.println("La abeja ha mutado");
+            //System.out.println("La abeja ha mutado");
            muta = true;
-           int indice = (int)(Math.random()* 31 + 1);
+           int indice = (int)(Math.random()* 15 + 1);
            char mutacion = (nuevoADN.charAt(indice) == '0')? '1':'0';
            String mit1 = nuevoADN.substring(0, indice );
            String mit2 = nuevoADN.substring(indice + 1 , nuevoADN.length() );
@@ -299,7 +303,7 @@ public class Abeja {
            }
        }
        
-       String iniX =Integer.toBinaryString(distMax);
+       /*String iniX =Integer.toBinaryString(distMax);
        if(iniX.length() < 8){
            int dif = 8 - iniX .length();
            for(int i = 0; i < dif; i++){
@@ -313,15 +317,20 @@ public class Abeja {
            for(int i = 0; i < dif; i++){
                iniY = "0" + iniY;
            }
-       }
+       }*/
        
-        String ADN = bColor + bDir + bOrd + bDist + iniX + iniY;
+        String ADN = bColor + bDir + bOrd + bDist; //+ iniX + iniY;
         
         return ADN;
     }
     
     public float CalcularCalificacion(){
-        this.puntaje = floresVisitadas.size()/distanciaRecorrida * 1000;
+        
+        puntaje = 0;
+        if(distanciaRecorrida != 0){
+            this.puntaje = floresVisitadas.size()/distanciaRecorrida * 1000;
+        }
+        
         return puntaje;
     }
 
