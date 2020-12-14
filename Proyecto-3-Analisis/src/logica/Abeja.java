@@ -500,7 +500,9 @@ public class Abeja {
                             cont--;continue;
                         }this.distanciaRecorrida=(float) dist;
 
-                        for(Flor a: this.floresVisitadas){flower.agregarFlor(a);}
+                        //for(Flor a: this.floresVisitadas){flower.agregarFlor(a);}
+                        //System.out.println(floresVisitadas.size());
+                        flower.agregarFlores(floresVisitadas);
                         this.agregarFlor(flower);
                         this.posX=flower.getPosX();this.posY=flower.getPosY();
                         Main.FloresActuales.set(cont, flower);

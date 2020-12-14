@@ -54,7 +54,7 @@ public class CampoFlores {
                     sketch.fill(255,0,128);
                     break;
             }
-            sketch.rect(flor.getPosX()*10,flor.getPosY()*10,10,10);
+                sketch.rect(flor.getPosX()*5,flor.getPosY()*5,5,5);
         }
     }
 }

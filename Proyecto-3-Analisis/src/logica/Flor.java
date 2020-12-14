@@ -40,6 +40,7 @@ public class Flor {
     }
     
     public void agregarFlores(ArrayList<Flor> polen){
+        System.out.println(flores.size());
         flores.addAll(polen);
     }
     
@@ -142,8 +143,8 @@ public class Flor {
             nuevo=nuevo+nuevo1;
 
             //Mutación
-            if ((Math.random()* 1)==factorMutacion){
-                System.out.println("HUBO MUTACION");
+            if ((Math.random()* 1)<factorMutacion){
+                //System.out.println("HUBO MUTACION");
                 char[] tempCharArray = nuevo.toCharArray();
                 int i=(int)(Math.random()*19);
                 
