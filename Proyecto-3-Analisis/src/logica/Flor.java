@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 
 public class Flor {
-    private final double factorMutacion = 0.5;
+    private final double factorMutacion = 0.1;
     private int posX;
     private int posY;
     private int color;
