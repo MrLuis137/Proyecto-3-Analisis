@@ -489,7 +489,7 @@ public class Abeja {
                         for(Flor a: this.floresVisitadas){flower.agregarFlor(a);}
                         this.agregarFlor(flower);
                         this.posX=flower.getPosX();this.posY=flower.getPosY();
-                        Main.FloresActuales.set(cont, flower);
+                        Main.FloresActuales.set(posibles.get(cont), flower);
                         cont++;}
                 }else{
                     cont=posibles.size()-1;
@@ -505,7 +505,7 @@ public class Abeja {
                         flower.agregarFlores(floresVisitadas);
                         this.agregarFlor(flower);
                         this.posX=flower.getPosX();this.posY=flower.getPosY();
-                        Main.FloresActuales.set(cont, flower);
+                        Main.FloresActuales.set(posibles.get(cont), flower);
                         cont--;}   
                 }
             }else{
@@ -521,7 +521,7 @@ public class Abeja {
                         for(Flor a: this.floresVisitadas){flower.agregarFlor(a);}
                         this.agregarFlor(flower);
                         this.posX=flower.getPosX();this.posY=flower.getPosY();
-                        Main.FloresActuales.set(cont, flower);
+                        Main.FloresActuales.set(posibles.get(cont), flower);
                         cont--;}
                 }else{
                     cont=0;
@@ -534,7 +534,7 @@ public class Abeja {
                         for(Flor a: this.floresVisitadas){flower.agregarFlor(a);}
                         this.agregarFlor(flower);
                         this.posX=flower.getPosX();this.posY=flower.getPosY();
-                        Main.FloresActuales.set(cont, flower);
+                        Main.FloresActuales.set(posibles.get(cont), flower);
                         cont++;}     
                 }
             }
