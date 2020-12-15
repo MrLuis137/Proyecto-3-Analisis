@@ -18,9 +18,9 @@ import java.util.ArrayList;
 public class Main extends PApplet{
     
     public static final int cantidadFlores = 100;
-    public static final int cantidadAbejas = 100;
+    public static final int cantidadAbejas = 1000;
     public static final int TamanioCampo = 100;
-    public static int maxIteraciones = 100;
+    public static int maxIteraciones = 1000;
     
     public static ArrayList<Flor> FloresActuales = new ArrayList<Flor>();
     public static ArrayList<Abeja> abejasActuales = new ArrayList<Abeja>();
@@ -123,7 +123,7 @@ public class Main extends PApplet{
         
         }
         realiazarCruce(puntajes);
-        w.actualizarListaAbejas();
+        
         
     }
     

@@ -28,7 +28,7 @@ public class Abeja {
     
     boolean seAleja;
     boolean mutada = false;
-    private double factorMutacion = 0.5;
+    private double factorMutacion = 0.8;
     private int colorFav;
     private Direccion direccionFav;
     private int orden;
@@ -227,7 +227,7 @@ public class Abeja {
         }
         Abeja a = new Abeja(nuevoADN, this, abeja2);
         a.setMutada(muta);
-        this.floresVisitadas.clear();
+        this.floresVisitadas = null;
         return a;
     }
     

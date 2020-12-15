@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 
 public class Flor {
-    private final double factorMutacion = 0.5;
+    private final double factorMutacion = 0.0;
     private int posX;
     private int posY;
     private int color;
@@ -156,13 +156,15 @@ public class Flor {
             System.out.println(corte+" "+nuevo);
             System.out.println(nuevo.substring(0, 8)+" "+nuevo.substring(8, 16)+" "+ nuevo.substring(16, 19));
             */
-
-            return new Flor(Integer.parseInt(nuevo.substring(0, 8),2),Integer.parseInt(nuevo.substring(8, 16),2),
+            Flor f = new Flor(Integer.parseInt(nuevo.substring(0, 8),2),Integer.parseInt(nuevo.substring(8, 16),2),
                     Integer.parseInt(nuevo.substring(16, 19),2),this,flores.get(indice));
+            this.flores = null;
+            return f;
         }
         else{
             Flor newFlor = new Flor();
             newFlor.setGeneracion(this.getGeneracion()+1);
+            this.flores = null;
             return newFlor;
         }
     }

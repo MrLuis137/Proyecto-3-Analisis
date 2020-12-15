@@ -56,10 +56,6 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
 
-        convAbeja.setText("jLabel1");
-
-        convFlor.setText("jLabel2");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -89,8 +85,11 @@ public class MainWindow extends javax.swing.JFrame {
                 .addComponent(convAbeja)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(convFlor)
-                .addContainerGap(73, Short.MAX_VALUE))
+                .addContainerGap(105, Short.MAX_VALUE))
         );
+
+        convAbeja.getAccessibleContext().setAccessibleName("");
+        convFlor.getAccessibleContext().setAccessibleName("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -103,6 +102,7 @@ public class MainWindow extends javax.swing.JFrame {
         msgFlores += (Main.convergenciaFlores >0)? Main.convergenciaFlores : "NA";
         convAbeja.setText(msgAbeja);
         convFlor.setText(msgFlores);
+        this.actualizarListaAbejas();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
