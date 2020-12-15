@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 
 public class Flor {
-    private final double factorMutacion = 0.1;
+    private final double factorMutacion = 0.5;
     private int posX;
     private int posY;
     private int color;
@@ -40,7 +40,7 @@ public class Flor {
     }
     
     public void agregarFlores(ArrayList<Flor> polen){
-        System.out.println(flores.size());
+        //System.out.println(flores.size());
         flores.addAll(polen);
     }
     

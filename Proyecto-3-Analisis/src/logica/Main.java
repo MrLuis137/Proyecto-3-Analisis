@@ -17,15 +17,20 @@ import java.util.ArrayList;
  */
 public class Main extends PApplet{
     
-    public static final int cantidadFlores = 1000;
+    public static final int cantidadFlores = 100;
     public static final int cantidadAbejas = 100;
     public static final int TamanioCampo = 100;
+    public static int maxIteraciones = 100;
     
     public static ArrayList<Flor> FloresActuales = new ArrayList<Flor>();
     public static ArrayList<Abeja> abejasActuales = new ArrayList<Abeja>();
     static boolean  cambios = false;
     public static CampoFlores campo;
     public static MainWindow w;
+    public static int convergenciaFlores = 0;
+    public static int convergenciaAbejas = 0;
+    
+    
     
     public static void main(String[]Args){
         String[] appletArgs = new String[] { "logica.Main" };
@@ -59,6 +64,26 @@ public class Main extends PApplet{
         if(cambios){
             campo.run(FloresActuales);
             cambios = false;
+        }
+    }
+    
+    public static void run(){
+        for(int i = 0; i < maxIteraciones; i++){
+            System.out.println(i);
+            runIteration();
+            cambios = true;
+            short haConvergido = haConvergido();
+            switch (haConvergido){
+                case 10:
+                    convergenciaAbejas =(convergenciaAbejas == 0 )? i: convergenciaAbejas ;
+                case 01:
+                    convergenciaFlores = (convergenciaFlores == 0 )? i : convergenciaFlores;
+                case 11:
+                    convergenciaAbejas =(convergenciaAbejas == 0 )? i: convergenciaAbejas ;
+                    convergenciaFlores = (convergenciaFlores == 0 )? i : convergenciaFlores;
+                    return;
+            }
+            
         }
     }
     
@@ -100,6 +125,26 @@ public class Main extends PApplet{
         realiazarCruce(puntajes);
         w.actualizarListaAbejas();
         
+    }
+    
+    public static short haConvergido(){
+        short ca = 1;
+        short cf = 1;
+        String temp = abejasActuales.get(0).getADN();
+         for(Abeja a: abejasActuales){
+            if(!a.getADN().equals(temp)){
+                ca = 0;
+            }
+        }
+        
+        Flor fl = FloresActuales.get(0);
+        temp = fl.obtenerCadena(fl);
+        for(Flor f: FloresActuales){
+            if(!f.obtenerCadena(f).equals(temp)){
+                cf = 0;
+            }
+        }
+        return (short) (ca * 10 + cf);
     }
     
     private static void realiazarCruce(ArrayList<float[]> puntajes){

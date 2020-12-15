@@ -39,7 +39,7 @@ public class Abeja {
     private ArrayList<Flor> floresVisitadas = new ArrayList<Flor>(); 
     private int posX;
     private int posY;
-    private float puntaje = -1; 
+    private float puntaje = -1;
     
     //------------CODIGO TEMPORAL---------------
     //------------------------------------------
@@ -121,57 +121,6 @@ public class Abeja {
         this.ancestros[1] = ancestro1;
         this.ancestros[2] = ancestro2;
     }
-    
-    /*private void getRadomPos(){
-        int x = 0;
-        int y = 0;
-        int mitad = Main.TamanioCampo / 2;
-        switch(direccionFav){
-            case N:
-                y = (int) Math.random() * (this.distMax - mitad) + mitad; 
-                break;
-                
-            case NE:
-                do{
-                    y = (int) Math.random() * (this.distMax - mitad) + mitad;
-                    x = (int) Math.random() *  mitad;
-                }
-                while(Math.sqrt((double)( x^2 + y^2 )) >= distMax);
-                break;
-                
-            case E:
-                    x = (int) Math.random() *  mitad;
-                break;
-                
-            case SE:
-                do{
-                    y = (int) Math.random() *  mitad;
-                    x = (int) Math.random() *  mitad;
-                }
-                while(Math.sqrt((double)( x^2 + y^2 )) >= distMax);
-                break;
-                
-            case S:
-                y = (int) Math.random() *  mitad;
-                break;
-                
-            case SO:
-                do{
-                    y = (int) Math.random() *  mitad;
-                    x = (int) Math.random() * (this.distMax - mitad) + mitad;
-                }
-                while(Math.sqrt((double)( x^2 + y^2 )) >= distMax);
-                break;
-                
-            case O:
-                x = (int) Math.random() * (this.distMax - mitad) + mitad;
-                break;
-            case NO:
-                break;
-        }
-        this.posX = x;
-        this.posY = y;
-    }*/
     
     public void recorrerCampo(){
         //------------CODIGO TEMPORAL---------------
@@ -278,6 +227,7 @@ public class Abeja {
         }
         Abeja a = new Abeja(nuevoADN, this, abeja2);
         a.setMutada(muta);
+        this.floresVisitadas.clear();
         return a;
     }
     
