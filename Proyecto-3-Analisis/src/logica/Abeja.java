@@ -65,6 +65,10 @@ public class Abeja {
     }
     //------------------------------------------
     //------------CODIGO TEMPORAL---------------
+
+    public float getDistanciaRecorrida() {
+        return distanciaRecorrida;
+    }
     
     public Abeja(){
         //Generación random de datos
@@ -581,7 +585,7 @@ public class Abeja {
 
     @Override
     public String toString() {
-        return "Abeja{" + "\n colorFav=" + colorFav + "\n,direccionFav=" + direccionFav + "\n,orden=" + orden + "\n,distMax=" + distMax + "\n,ancestros=" + ancestros + "\n,Flores visitadas=" + floresVisitadas.size() + "\n}";
+        return "Abeja{" + "\n ID=" + id  + "\n Generacion=" + generacion + "\n colorFav=" + colorFav + "\n,direccionFav=" + direccionFav + "\n,orden=" + orden + "\n,distMax=" + distMax + "\n,ancestros=" + ancestros + "\n,Mutada=" + mutada  +"\n,Flores visitadas=" + floresVisitadas.size() + "\n}";
     }
     
     
