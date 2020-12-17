@@ -168,4 +168,14 @@ public class Flor {
             return newFlor;
         }
     }
+    
+    @Override
+    public String toString() {
+        return "Flor{" + "\n\tGeneracion: " + generacion + 
+                "\n\tColor: " + color + 
+                "\n\tPosicion X: " + posX + 
+                "\n\tPosicion Y: " + posY + 
+                "\n\tAncestros:" + ancestros + 
+                "\n}\n";
+    }
 }
