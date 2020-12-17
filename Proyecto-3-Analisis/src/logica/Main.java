@@ -31,6 +31,7 @@ public class Main extends PApplet{
     public static MainWindow w;
     public static int convergenciaFlores = 0;
     public static int convergenciaAbejas = 0;
+    public static int iteracion = 0;
     
     
     
@@ -73,7 +74,6 @@ public class Main extends PApplet{
         FileWriter fichero = null;
         PrintWriter pw = null;
         String ruta = "D:\\prueba.txt";
-        int iteracion = 0;
         try{
             if (iteracion==0){
                 fichero = new FileWriter(ruta);
