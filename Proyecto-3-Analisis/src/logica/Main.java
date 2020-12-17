@@ -21,10 +21,10 @@ public class Main extends PApplet{
     public static final int cantidadAbejas = 1000;
     public static final int TamanioCampo = 100;
     public static int maxIteraciones = 1000;
-    
+    public static ArrayList<ArrayList<Flor>> HistorialFlores = new ArrayList<ArrayList<Flor>>(); 
     public static ArrayList<Flor> FloresActuales = new ArrayList<Flor>();
     public static ArrayList<Abeja> abejasActuales = new ArrayList<Abeja>();
-    static boolean  cambios = false;
+    static boolean cambios = false;
     public static CampoFlores campo;
     public static MainWindow w;
     public static int convergenciaFlores = 0;
@@ -122,7 +122,11 @@ public class Main extends PApplet{
         for(float[] puntaje : puntajes){ puntaje[1] = puntaje[1] / puntajeGlobal;}
         
         }
+        if(HistorialFlores.size() == 0 ){
+            HistorialFlores.add(Main.FloresActuales);
+        }
         realiazarCruce(puntajes);
+        HistorialFlores.add(Main.FloresActuales);
         
         
     }
@@ -227,4 +231,10 @@ public class Main extends PApplet{
             ordenarPuntajes(A,j+1,der);          // ordenamos subarray derecho
 
       }
+    
+    public static void verCampo(int n){
+        FloresActuales = HistorialFlores.get(n);
+        cambios = true;
+        //campo.run(HistorialFlores.get(n));
+    }
 }

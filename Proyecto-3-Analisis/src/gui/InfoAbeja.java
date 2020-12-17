@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -56,13 +56,17 @@ public class InfoAbeja extends javax.swing.JFrame {
             }
         colorFav.setText(color);
         String orden = "";
-        switch (abeja.getOrden()){
+        int ord =abeja.getOrden();
+        switch (ord){
             case 0:
                 orden = "profundidad";
+                break;
             case 1:
                 orden = "Anchura";
+                break;
             case 2:
                 orden = "Random";
+                break;
         }
         OrdBusq.setText(orden);
         dirFav.setText(abeja.getDireccionFav().name());

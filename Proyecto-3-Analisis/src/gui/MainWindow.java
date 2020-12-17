@@ -14,11 +14,13 @@ import java.nio.ByteBuffer;
 import logica.*;
 import java.util.HashMap;
 import gui.CampoFlores;
+import java.util.ArrayList;
 public class MainWindow extends javax.swing.JFrame {
     /**
      * Creates new form MainWindow
      */
     HashMap<String, Abeja> abejas = new HashMap<String,Abeja>();
+    
     public MainWindow() {
         initComponents();
     }
@@ -37,6 +39,9 @@ public class MainWindow extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         convAbeja = new javax.swing.JLabel();
         convFlor = new javax.swing.JLabel();
+        iterationSelector = new javax.swing.JSlider();
+        jLabel1 = new javax.swing.JLabel();
+        iteracion = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -56,6 +61,16 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
 
+        iterationSelector.setValue(0);
+        iterationSelector.setEnabled(false);
+        iterationSelector.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                iterationSelectorStateChanged(evt);
+            }
+        });
+
+        jLabel1.setText("Campo en la iteración:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -63,14 +78,20 @@ public class MainWindow extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(iterationSelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(convFlor)
                     .addComponent(convAbeja)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(selectAbejas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(31, 31, 31)
-                        .addComponent(jButton2)))
-                .addContainerGap(58, Short.MAX_VALUE))
+                        .addComponent(jButton2))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(iteracion))
+                        .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -85,16 +106,20 @@ public class MainWindow extends javax.swing.JFrame {
                 .addComponent(convAbeja)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(convFlor)
-                .addContainerGap(105, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(iteracion))
+                .addGap(18, 18, 18)
+                .addComponent(iterationSelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18))
         );
-
-        convAbeja.getAccessibleContext().setAccessibleName("");
-        convFlor.getAccessibleContext().setAccessibleName("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
         Main.run();
         String msgAbeja = "Las abejas convergieron en: ";
         String msgFlores = "Las Flores convergieron en: ";
@@ -103,12 +128,23 @@ public class MainWindow extends javax.swing.JFrame {
         convAbeja.setText(msgAbeja);
         convFlor.setText(msgFlores);
         this.actualizarListaAbejas();
+        int selectorSize = Main.HistorialFlores.size() - 1;
+        this.iterationSelector.setValue(selectorSize);
+        this.iterationSelector.setMaximum(selectorSize);
+        this.iterationSelector.setEnabled(true);
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
        Abeja a = abejas.get(selectAbejas.getSelectedItem());
        new InfoAbeja(a).setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void iterationSelectorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_iterationSelectorStateChanged
+
+        Main.verCampo(iterationSelector.getValue());
+        iteracion.setText(Integer.toString(iterationSelector.getValue()));
+    }//GEN-LAST:event_iterationSelectorStateChanged
 
     public void actualizarListaAbejas(){
         selectAbejas.removeAllItems();
@@ -125,8 +161,11 @@ public class MainWindow extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel convAbeja;
     private javax.swing.JLabel convFlor;
+    private javax.swing.JLabel iteracion;
+    private javax.swing.JSlider iterationSelector;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JComboBox<String> selectAbejas;
     // End of variables declaration//GEN-END:variables
 }
