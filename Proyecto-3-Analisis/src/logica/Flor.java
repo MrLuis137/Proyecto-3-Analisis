@@ -153,7 +153,7 @@ public class Flor {
             String individuo1=obtenerCadena(this);
             String individuo2=obtenerCadena(flores.get(indice));
 
-            int corte=(int)(Math.random()*19);
+            int corte=(int)(Math.random()*17);
 
             String nuevo= individuo1.substring(0, corte);
             String nuevo1= individuo2.substring(corte, individuo2.length());
@@ -173,8 +173,8 @@ public class Flor {
             System.out.println(corte+" "+nuevo);
             System.out.println(nuevo.substring(0, 8)+" "+nuevo.substring(8, 16)+" "+ nuevo.substring(16, 19));
             */
-            Flor f = new Flor(Integer.parseInt(nuevo.substring(0, 8),2),Integer.parseInt(nuevo.substring(8, 16),2),
-                    Integer.parseInt(nuevo.substring(16, 19),2),this,flores.get(indice));
+            Flor f = new Flor(Integer.parseInt(nuevo.substring(0, 7),2),Integer.parseInt(nuevo.substring(7, 14),2),
+                    Integer.parseInt(nuevo.substring(14, 17),2),this,flores.get(indice));
             this.flores = null;
             return f;
         }
