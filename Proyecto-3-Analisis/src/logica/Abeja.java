@@ -585,7 +585,18 @@ public class Abeja {
 
     @Override
     public String toString() {
-        return "Abeja{" + "\n ID=" + id  + "\n Generacion=" + generacion + "\n colorFav=" + colorFav + "\n,direccionFav=" + direccionFav + "\n,orden=" + orden + "\n,distMax=" + distMax + "\n,ancestros=" + ancestros + "\n,Mutada=" + mutada  +"\n,Flores visitadas=" + floresVisitadas.size() + "\n}";
+        String ance1;
+        String ance2;
+        if(ancestros == null){
+            ance1 = "NA";
+            ance2 = "NA";
+        }
+        else{
+            ance1 = ancestros[0].getId();
+            ance2 = ancestros[0].getId();
+        }
+        
+        return "Abeja{" + "\n ID=" + id  + "\n Generacion=" + generacion + "\n colorFav=" + colorFav + "\n,direccionFav=" + direccionFav + "\n,orden=" + orden + "\n,distMax=" + distMax + "\n,ancestro2=" + ance1+ "\n,ancestro2=" + ance2  + "\n,Mutada=" + mutada  +"\n,Flores visitadas=" + floresVisitadas.size() + "\n}";
     }
     
     

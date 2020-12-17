@@ -129,9 +129,10 @@ public class MainWindow extends javax.swing.JFrame {
         convFlor.setText(msgFlores);
         this.actualizarListaAbejas();
         int selectorSize = Main.HistorialFlores.size() - 1;
-        this.iterationSelector.setValue(selectorSize);
         this.iterationSelector.setMaximum(selectorSize);
+        this.iterationSelector.setValue(selectorSize);
         this.iterationSelector.setEnabled(true);
+        this.jButton1.setEnabled(false);
         
     }//GEN-LAST:event_jButton1ActionPerformed
 

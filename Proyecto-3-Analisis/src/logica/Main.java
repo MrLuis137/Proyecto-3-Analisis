@@ -7,6 +7,8 @@ package logica;
 
 import gui.CampoFlores;
 import gui.MainWindow;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import processing.core.PApplet;
 import logica.Flor;
 import java.util.ArrayList;
@@ -70,7 +72,8 @@ public class Main extends PApplet{
      public static void escribirInfo(){
         FileWriter fichero = null;
         PrintWriter pw = null;
-        String ruta = "C:\\Users\\   \\Desktop\\prueba.txt";
+        String ruta = "D:\\prueba.txt";
+        int iteracion = 0;
         try{
             if (iteracion==0){
                 fichero = new FileWriter(ruta);

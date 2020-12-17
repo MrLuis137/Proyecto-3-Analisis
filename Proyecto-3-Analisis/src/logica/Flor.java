@@ -9,6 +9,11 @@ import java.util.ArrayList;
 
 
 public class Flor {
+    
+    static private int count = 0;
+    static private int globalgen = 0;
+    private String id = "";
+    
     private final double factorMutacion = 0.0;
     private int posX;
     private int posY;
@@ -19,11 +24,13 @@ public class Flor {
 
     
     public Flor(){
+        id= "FL-0-" + count;
         //this.pos =(int) (Math.random() * tamaño de la ventana);
         this.posX = (int) (Math.random() * 100);
         this.posY = (int) (Math.random() * 100);
         this.color = (int) (Math.random() * 8);
-        this.generacion=0; 
+        this.generacion=0;
+        count++;
     }
     
     public Flor(int posX, int posY, int color, Flor ancestro1, Flor ancestro2){
@@ -32,6 +39,12 @@ public class Flor {
         this.color=color;
         this.generacion=ancestro1.getGeneracion()+1;
         this.ancestros.add(ancestro1);this.ancestros.add(ancestro2);  
+        if(this.generacion > globalgen){
+            count = 0; globalgen++;
+        }
+        id = "FL-" + globalgen + "-" + count;
+        count++;
+    
     }
     
     public void agregarFlor(Flor flor){
@@ -42,6 +55,10 @@ public class Flor {
     public void agregarFlores(ArrayList<Flor> polen){
         //System.out.println(flores.size());
         flores.addAll(polen);
+    }
+
+    public String getId() {
+        return id;
     }
     
     public int getPosX() {
@@ -171,11 +188,24 @@ public class Flor {
     
     @Override
     public String toString() {
-        return "Flor{" + "\n\tGeneracion: " + generacion + 
+        String ancestro1;
+        String ancestro2;
+        if(ancestros.size() == 0 ){
+            ancestro1 = "NA";
+            ancestro2 = "NA";
+        }
+        else{
+            ancestro1 = ancestros.get(0).getId();
+            ancestro2 = ancestros.get(1).getId();
+        }
+        
+        return "Flor{" + "\n\tID: " + id + 
+                "\n\tGeneracion: " + generacion + 
                 "\n\tColor: " + color + 
                 "\n\tPosicion X: " + posX + 
                 "\n\tPosicion Y: " + posY + 
-                "\n\tAncestros:" + ancestros + 
+                "\n\tAncestro1:" + ancestro1 + 
+                "\n\tAncestro2:" + ancestro2 + 
                 "\n}\n";
     }
 }
