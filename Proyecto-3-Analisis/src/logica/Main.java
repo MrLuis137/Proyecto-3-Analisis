@@ -67,6 +67,40 @@ public class Main extends PApplet{
         }
     }
     
+     public static void escribirInfo(){
+        FileWriter fichero = null;
+        PrintWriter pw = null;
+        String ruta = "C:\\Users\\   \\Desktop\\prueba.txt";
+        try{
+            if (iteracion==0){
+                fichero = new FileWriter(ruta);
+            }else{
+                fichero = new FileWriter(ruta,true);
+            }
+            
+            iteracion++;
+            pw = new PrintWriter(fichero);
+            pw.println("\n_____________________________________________________________Iteración: "+iteracion+"_____________________________________________________________\n");
+            
+            pw.println("\t\t\t\t\t_____________________Abejas_____________________");
+            pw.println("\t\t\t\t\t************************************************");
+            for(Abeja bee: abejasActuales){pw.println(bee);}
+            
+            pw.println("\t\t\t\t\t_____________________Flores_____________________");
+            pw.println("\t\t\t\t\t************************************************");
+            //System.out.println("_________________________________________________________________________________-");
+            for(Flor flower: FloresActuales){
+                //System.out.println(flower.cantidadPolen());
+                //System.out.println(flower);
+                pw.println(flower);}
+            pw.println("");
+   
+        }catch (Exception e){e.printStackTrace();}finally {
+            try {if (null != fichero)fichero.close();
+            }catch (Exception e2) {e2.printStackTrace();}
+        }
+    }
+    
     public static void run(){
         for(int i = 0; i < maxIteraciones; i++){
             System.out.println(i);
@@ -91,6 +125,7 @@ public class Main extends PApplet{
         ArrayList<float[]> puntajes = new ArrayList<float[]>();
         float puntajeGlobal = 0;
         float i = 0;
+        escribirInfo();
         for(Abeja abeja: abejasActuales){
             //abeja.recorrerCampo();
             abeja.busqueda();
