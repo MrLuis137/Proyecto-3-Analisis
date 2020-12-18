@@ -28,7 +28,7 @@ public class Abeja {
     
     boolean seAleja;
     boolean mutada = false;
-    private double factorMutacion = 5.0;
+    private double factorMutacion = 0.001;
     private int colorFav;
     private Direccion direccionFav;
     private int orden;
@@ -51,7 +51,7 @@ public class Abeja {
         count++;
         this.orden = (int)(Math.random() * 3);
         //System.out.println(this.orden);
-        this.distMax  = (int) (Math.random() * (100 - 10) + 10);
+        this.distMax  = (int) (Math.random() * (127 - 10) + 10);
         this.angulo= (int) (Math.random() * (25 - 10) + 25);
         this.colorFav = (int) (Math.random() * 7);
         this.direccionFav = Direccion.getDireccion((int) Math.random() * 7);

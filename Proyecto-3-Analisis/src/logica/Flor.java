@@ -14,7 +14,7 @@ public class Flor {
     static private int globalgen = 0;
     private String id = "";
     
-    private final double factorMutacion = 5.0;
+    private final double factorMutacion = 0.01;
     private int posX;
     private int posY;
     private int color;
@@ -26,8 +26,8 @@ public class Flor {
     public Flor(){
         id= "FL-0-" + count;
         //this.pos =(int) (Math.random() * tamaño de la ventana);
-        this.posX = (int) (Math.random() * 100);
-        this.posY = (int) (Math.random() * 100);
+        this.posX = (int) (Math.random() * 127);
+        this.posY = (int) (Math.random() * 127);
         this.color = (int) (Math.random() * 8);
         this.generacion=0;
         count++;
