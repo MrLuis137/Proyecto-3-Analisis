@@ -160,14 +160,12 @@ public class Flor {
             nuevo=nuevo+nuevo1;
 
             //Mutación
-            if ((Math.random()* 1)<factorMutacion){
-                //System.out.println("HUBO MUTACION");
-                char[] tempCharArray = nuevo.toCharArray();
+            if((Math.random()* 1) < factorMutacion){
                 int i=(int)(Math.random()*17);
-                
-                if(nuevo.charAt(i)=='1')tempCharArray[i] = '0';
-                else tempCharArray[i] = '0';
-                nuevo = String.valueOf(tempCharArray);  
+                char mutacion = (nuevo.charAt(i) == '0')? '1':'0';
+                String mit1 = nuevo.substring(0, i );
+                String mit2 = nuevo.substring(i + 1 , nuevo.length() );
+                nuevo = mit1 + mutacion + mit2; 
             }
             /*
             System.out.println(corte+" "+nuevo);
