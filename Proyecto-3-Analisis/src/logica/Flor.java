@@ -100,7 +100,7 @@ public class Flor {
     
     public String completarBits(String numero, int tipo){
         if(tipo==0)while(numero.length()<3)numero="0"+numero;  
-        else while(numero.length()<8)numero="0"+numero;
+        else while(numero.length()<7)numero="0"+numero;
         return numero;    
     }
     
@@ -163,7 +163,7 @@ public class Flor {
             if ((Math.random()* 1)<factorMutacion){
                 //System.out.println("HUBO MUTACION");
                 char[] tempCharArray = nuevo.toCharArray();
-                int i=(int)(Math.random()*19);
+                int i=(int)(Math.random()*17);
                 
                 if(nuevo.charAt(i)=='1')tempCharArray[i] = '0';
                 else tempCharArray[i] = '0';
