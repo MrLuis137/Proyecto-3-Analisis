@@ -14,7 +14,7 @@ public class Flor {
     static private int globalgen = 0;
     private String id = "";
     
-    private final double factorMutacion = 0.0;
+    private final double factorMutacion = 5.0;
     private int posX;
     private int posY;
     private int color;

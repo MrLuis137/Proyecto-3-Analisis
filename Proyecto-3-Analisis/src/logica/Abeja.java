@@ -28,7 +28,7 @@ public class Abeja {
     
     boolean seAleja;
     boolean mutada = false;
-    private double factorMutacion = 0.8;
+    private double factorMutacion = 5.0;
     private int colorFav;
     private Direccion direccionFav;
     private int orden;
@@ -40,32 +40,7 @@ public class Abeja {
     private int posX;
     private int posY;
     private float puntaje = -1;
-    
-    //------------CODIGO TEMPORAL---------------
-    //------------------------------------------
-    public int busquedaTemporal(){
-        if(distanciaRecorrida >= distMax){return 0;}
-        for(int i = 0; i < 100; i++){
-            Flor f = Main.FloresActuales.get(i);
-            if( f.getColor()== this.colorFav && !floresVisitadas.contains(f)){
-                floresVisitadas.add(f);
-                float tempX  = this.posX - f.getPosX();
-                float tempY = this.posY - f.getPosY();
-                float dist = (float) Math.sqrt(Math.pow(tempX, 2) + Math.pow(tempY, 2));
-                distanciaRecorrida += dist;
-                
-                f.agregarFlores(floresVisitadas);
-                this.posX = f.getPosX();
-                this.posY = f.getPosY();
-                
-                return 1;
-            }
-        }
-        return 0;
-    }
-    //------------------------------------------
-    //------------CODIGO TEMPORAL---------------
-
+   
     public float getDistanciaRecorrida() {
         return distanciaRecorrida;
     }
@@ -125,15 +100,7 @@ public class Abeja {
         this.ancestros[1] = ancestro1;
         this.ancestros[2] = ancestro2;
     }
-    
-    public void recorrerCampo(){
-        //------------CODIGO TEMPORAL---------------
-         int k = busquedaTemporal();
-        //------------CODIGO TEMPORAL---------------
-        double dist = Math.sqrt((double)( (posX - Main.TamanioCampo/2)^2 + (posY - Main.TamanioCampo/2)^2 ));
-        //System.out.println(posX + "" + posY);
-        if(k == 1 && dist <= distMax && distanciaRecorrida <= (distMax^2)){recorrerCampo();}
-    }
+   
     
     public void agregarFlor(Flor f){
         floresVisitadas.add(f);
@@ -268,21 +235,6 @@ public class Abeja {
            }
        }
        
-       /*String iniX =Integer.toBinaryString(distMax);
-       if(iniX.length() < 8){
-           int dif = 8 - iniX .length();
-           for(int i = 0; i < dif; i++){
-               iniX  = "0" + iniX ;
-           }
-       }
-       
-       String iniY =Integer.toBinaryString(distMax);
-       if(iniY.length() < 8){
-           int dif = 8 - iniY.length();
-           for(int i = 0; i < dif; i++){
-               iniY = "0" + iniY;
-           }
-       }*/
        
         String ADN = bColor + bDir + bOrd + bDist; //+ iniX + iniY;
         

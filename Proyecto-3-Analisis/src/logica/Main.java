@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class Main extends PApplet{
     
     public static final int cantidadFlores = 100;
-    public static final int cantidadAbejas = 1000;
+    public static final int cantidadAbejas = 100;
     public static final int TamanioCampo = 100;
     public static int maxIteraciones = 1000;
     public static ArrayList<ArrayList<Flor>> HistorialFlores = new ArrayList<ArrayList<Flor>>(); 
@@ -113,8 +113,10 @@ public class Main extends PApplet{
             switch (haConvergido){
                 case 10:
                     convergenciaAbejas =(convergenciaAbejas == 0 )? i: convergenciaAbejas ;
+                    break;
                 case 01:
                     convergenciaFlores = (convergenciaFlores == 0 )? i : convergenciaFlores;
+                    break;
                 case 11:
                     convergenciaAbejas =(convergenciaAbejas == 0 )? i: convergenciaAbejas ;
                     convergenciaFlores = (convergenciaFlores == 0 )? i : convergenciaFlores;
@@ -192,9 +194,6 @@ public class Main extends PApplet{
     private static void realiazarCruce(ArrayList<float[]> puntajes){
         ArrayList<Abeja> nuevasAbejas = new ArrayList<Abeja>();
         ArrayList<Flor> nuevasFlores = new ArrayList<Flor>();
-        for(float[] puntaje: puntajes){
-            //System.out.println(puntaje[1]);
-        }
         ordenarPuntajes(puntajes, 0, puntajes.size() - 1);
         //System.out.println("******");
         for(int i = 0; i < (cantidadAbejas / 2); i++ ){
