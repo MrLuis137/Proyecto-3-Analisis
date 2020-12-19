@@ -75,6 +75,7 @@ public class Abeja {
         direccionFav = Direccion.getDireccion( Integer.parseInt(ADN.substring(3, 6), 2) );
         orden = Integer.parseInt(ADN.substring(6, 8), 2);
         distMax = Integer.parseInt(ADN.substring(8, 16), 2);
+        angulo = Integer.parseInt(ADN.substring(16, 20), 2);
         //System.out.println(ADN.length());
         /*posX = puntoInicioX  = Integer.parseInt(ADN.substring(16, 24), 2);
         posY = puntoInicioY = Integer.parseInt(ADN.substring(24, 32), 2);*/
@@ -178,10 +179,10 @@ public class Abeja {
         String ADN1 = this.getADN();
         String ADN2 = abeja2.getADN();
         //Posición de corte random
-        int corte = (int) (Math.random() * 15);
+        int corte = (int) (Math.random() * 19);
         //Obtiene las partes del ADN
         String parte1 = ADN1.substring(0, corte);
-        String parte2 = ADN2.substring(corte, 16);
+        String parte2 = ADN2.substring(corte, 20);
         //Lo reconvina
         String nuevoADN = parte1 + parte2;
          //System.out.println(nuevoADN);
@@ -190,7 +191,7 @@ public class Abeja {
         if((Math.random()* 1) < factorMutacion){
             //System.out.println("La abeja ha mutado");
            muta = true;
-           int indice = (int)(Math.random()* 15 + 1);
+           int indice = (int)(Math.random()* 19 + 1);
            char mutacion = (nuevoADN.charAt(indice) == '0')? '1':'0';
            String mit1 = nuevoADN.substring(0, indice );
            String mit2 = nuevoADN.substring(indice + 1 , nuevoADN.length() );
@@ -203,7 +204,7 @@ public class Abeja {
     }
     
     public String getADN(){
-       // ADN = color + dir + orden + distMax + inicioX + inicioY
+       // ADN = color + dir + orden + distMax
        //Convierte el número a binario
        String bColor = Integer.toBinaryString(colorFav);
        //Rellena de 0 para que la cantidad de bits sea constante
@@ -231,12 +232,20 @@ public class Abeja {
        if(bDist.length() < 8){
            int dif = 8 - bDist.length();
            for(int i = 0; i < dif; i++){
-               bDir = "0" + bDir;
+               bDist = "0" + bDist;
+           }
+       }
+       
+       String bAng =Integer.toBinaryString(angulo);
+       if(bAng.length() < 4){
+           int dif = 8 - bAng.length();
+           for(int i = 0; i < dif; i++){
+               bAng = "0" + bAng;
            }
        }
        
        
-        String ADN = bColor + bDir + bOrd + bDist; //+ iniX + iniY;
+        String ADN = bColor + bDir + bOrd + bDist + bAng; //+ iniX + iniY;
         
         return ADN;
     }

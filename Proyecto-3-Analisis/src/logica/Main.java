@@ -21,7 +21,7 @@ public class Main extends PApplet{
     
     public static final int cantidadFlores = 50;
     public static final int cantidadAbejas = 200;
-    public static final int TamanioCampo = 127;
+    public static final int TamanioCampo = 128;
     public static int maxIteraciones = 1000;
     public static ArrayList<ArrayList<Flor>> HistorialFlores = new ArrayList<ArrayList<Flor>>(); 
     public static ArrayList<Flor> FloresActuales = new ArrayList<Flor>();
@@ -118,8 +118,8 @@ public class Main extends PApplet{
                     convergenciaFlores = (convergenciaFlores == 0 )? i : convergenciaFlores;
                     break;
                 case 11:
-                    convergenciaAbejas =(convergenciaAbejas == 0 )? i: convergenciaAbejas ;
-                    convergenciaFlores = (convergenciaFlores == 0 )? i : convergenciaFlores;
+                    convergenciaAbejas = i;
+                    convergenciaFlores = i;
                     return;
             }
             
